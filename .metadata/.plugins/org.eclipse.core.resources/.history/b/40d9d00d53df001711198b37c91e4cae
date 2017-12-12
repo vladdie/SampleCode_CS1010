@@ -1,0 +1,74 @@
+package algorithmImpl;
+
+public class QuickSort {
+	
+	//private int[] input = {4,7,2,1,6,8,8,3,2,5,9,0,7};
+	private int[] input = {26,1,22,44,28,49,44,43,13,19,12,50};
+	//private int[] output = new int[input.length];
+	
+	public int increaseSolution(int begin, int end){
+		
+		int low = begin;
+		int high = end;
+		int currentIndex;
+		
+		int counter = 0;
+		currentIndex = step(low, high);
+		high = currentIndex;
+		//left partition
+		while(low!=high-1){
+			high = increaseSolution(low, high);
+			
+			counter++;
+			
+		}
+		//right partition
+		low=currentIndex+1;
+		high = end;
+		while(low!=high-1){
+			low = increaseSolution(low, high)+1;
+			
+			counter++;
+			
+		}
+		
+		return currentIndex;
+	}
+	
+	public int step(int low, int high){
+		System.out.print("\n Processing partition: "+input[low]+" ");
+		int pivot = input[low];
+		int swapIndex = low + 1;
+		for(int i = low + 1; i < high; i++){
+			System.out.print(input[i]+" ");
+			if(input[i] < pivot){
+				swap(i, swapIndex);
+				swapIndex++;
+			}
+		}
+		swap(low, swapIndex-1);
+		//input[low] = pivot;
+		//output[swapIndex-1] = pivot;
+		System.out.print("\n output Result: ");
+		for(int i = low; i < high; i++){
+			System.out.print(" " +input[i]+" ");
+		}
+		return swapIndex-1;
+	}
+	
+	private void swap(int x, int y){
+		int temp = input[x];
+		input[x] = input[y];
+		input[y] = temp;
+	}
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		QuickSort sort = new QuickSort();
+		sort.increaseSolution(0,sort.input.length);
+		
+	}
+
+}

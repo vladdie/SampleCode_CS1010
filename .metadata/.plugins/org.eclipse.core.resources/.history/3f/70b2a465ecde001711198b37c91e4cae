@@ -1,0 +1,158 @@
+package algorithmImpl;
+
+public class QuickSort {
+	
+	private int[] input = {4,7,2,1,6,8,8,3,2,5,9,0,7};
+	private int[] output = new int[input.length];
+	
+	public int[] increaseSolution(int[] input){
+		int criteriaIndex = input.length/2;
+		int criteria = input[criteriaIndex];
+		
+		int tail = input.length - 1;
+		int head = 0;
+		//boolean checkPos = false;
+		
+/*		while(head != tail){
+			//smaller than criteria, put to left
+			if(input[head] <= criteria && head < criteriaIndex){
+				//stay in the origin position
+				output[head] = input[head];
+				head++;
+				continue;
+			}
+			//bigger than criteria, put to right
+			if(input[head] > criteria && head < criteriaIndex){
+				//find out the right position in the right
+				if(input[tail] >= criteria && tail > criteriaIndex){
+					output[tail] = input[tail];
+					tail--;
+					continue;
+				}
+				if(input[tail] < criteria && tail > criteriaIndex){
+					//switch
+					output[head] = input[tail];
+					output[tail] = input[head];
+					head++;
+					tail--;
+					continue;
+				}
+			}
+		}*/
+		
+		while(head != tail){
+			// check the left part
+			if(head < criteriaIndex){
+				if(checkLeft(input[head], criteria, "INCREASE")){
+					//smaller than criteria, put to left(stay in the origin position)
+					output[head] = input[head];
+					head++;
+					continue;
+				}else{
+					if(tail > criteriaIndex){
+						//value to left
+						boolean posFound = checkRight(input[tail], criteria, "INCREASE");
+						while(!posFound){
+							output[tail] = input[tail];
+							tail--;
+							posFound = checkRight(input[tail], criteria, "INCREASE");
+						}
+						//position found, swap value
+						output[head] = input[tail];
+						output[tail] = input[head];
+						head++;
+						tail--;
+						continue;
+						
+					}else{
+						//check value with criteria
+						if(input[head] > criteria){
+							//swap current value with criteria
+							output[head] = criteria;
+						}else{
+							output[head] = input[head];
+						}
+						head++;
+					}
+				}
+			}
+			//check right
+			else if(tail > criteriaIndex){
+				if(checkRight(input[head], criteria, "INCREASE")){
+					//smaller than criteria, put to left(stay in the origin position)
+					output[tail] = input[tail];
+					tail--;
+					continue;
+				}
+			}else{
+				//check value with criteria
+				if(input[tail] < criteria){
+					//swap current value with criteria
+					output[tail] = criteria;
+				}else{
+					output[tail] = input[tail];
+				}
+				tail--;
+			}
+			
+			
+
+		}
+		
+		return output;
+	}
+	
+	private boolean checkRight(int value, int criteria, String type){
+		if(type.equals("INCREASE")){
+			if(value >= criteria ){
+				return true;
+			}else{
+				return false;
+			}
+			
+		}
+		//decrease
+		else{
+			if(value <= criteria ){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+	
+	private boolean checkLeft(int value, int criteria, String type){
+		if(type.equals("INCREASE")){
+			if(value <= criteria ){
+				return true;
+			}else{
+				return false;
+			}
+			
+		}
+		//decrease
+		else{
+			if(value >= criteria ){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+	
+	public int[] decreaseSolution(int[] input){
+		
+		return output;
+	}
+	
+	//private boolean checkLeft()
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		QuickSort sort = new QuickSort();
+		sort.increaseSolution(sort.input);
+		for(int i = 0;i < sort.output.length; i++)
+		System.out.print(sort.output[i]+" ");
+	}
+
+}
