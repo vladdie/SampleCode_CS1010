@@ -8,9 +8,15 @@ public class QuickSort {
 	                                                                                                                                                		                		
 	public void sort_incr(int begin, int end){
 		if(begin == end){
+			/*System.out.println("\n"+"*************************************");
+			for(int i = 0; i < input.length; i++){
+				System.out.print(input[i]+" ");
+			}
+			System.out.println("\n"+"*************************************");*/
 			return;
 		}
-		
+		//System.out.println("Begin="+begin+", End="+end);
+		//System.out.print("Processing partition: "+input[begin]+" ");
 		int pivot = input[begin];
 		int swapIndex = begin + 1;
 		for(int i = begin + 1; i < end; i++){
@@ -21,7 +27,11 @@ public class QuickSort {
 			}
 		}
 		swap(begin, swapIndex-1);
-		
+		/*System.out.print("\n output Result: ");
+		for(int i = begin; i < end; i++){
+			System.out.print(" " +input[i]+" ");
+		}
+		System.out.println();*/
 		
 		int low = begin;
 		int high = swapIndex-1;//pivot index

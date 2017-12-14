@@ -1,0 +1,37 @@
+package sampleQuestions;
+
+public class SampleString {
+	
+	String myString;
+	
+	//constructor using char[]
+	public SampleString(char[] charaters) {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	//constructor using string
+	public SampleString(String s) {
+		myString = s;
+		
+	}
+	
+	public String reverse(){
+		String reversedString = "";
+		for(int i=myString.length(); i>=0; i--){
+			char c = myString.charAt(i);
+			reversedString += c;
+		}
+		
+		return reversedString;
+		
+	}
+
+	public static void main(String[] args){
+		
+		SampleString testStr = new SampleString("helloWorld");
+		System.out.println(testStr.reverse());
+		
+	}
+
+}
