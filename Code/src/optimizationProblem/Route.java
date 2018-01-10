@@ -1,4 +1,4 @@
-package hillClimbing;
+package optimizationProblem;
 
 import java.util.ArrayList;
 import java.util.Arrays;

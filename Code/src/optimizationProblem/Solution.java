@@ -1,7 +1,8 @@
-package hillClimbing;
+package optimizationProblem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Solution {
 	private ArrayList<City> initialCities = new ArrayList<City>(Arrays.asList(
@@ -20,7 +21,24 @@ public class Solution {
     public static void main(String[] args) {
     	Solution solution = new Solution();
         Route route = new Route(solution.initialCities);
-        new HillClimbing().findShortestRoute(route);
+        System.out.println("Please choose the optimization algorithm by entering the index number:");
+        System.out.println("1: Hill Climbing");
+        System.out.println("2: Simulated Annealing");
+        Scanner reader = new Scanner(System.in); 
+        System.out.println("Please enter the index: ");
+        int index = reader.nextInt(); 
+        reader.close(); 
+        switch(index){
+        	case 1: 
+        		new HillClimbing().findShortestRoute(route);
+        		break;
+        	case 2:
+        		 new SimulatedAnnealing().findShortestRoute(route);
+        		 break;
+        	default:
+        		System.out.println("Invalid input");
+        }
+       
     }
 
 

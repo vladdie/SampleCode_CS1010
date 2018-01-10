@@ -1,4 +1,4 @@
-package hillClimbing;
+package optimizationProblem;
 
 /**
  * TSP: Travelling Salesman Problem
@@ -6,16 +6,18 @@ package hillClimbing;
  * 场景：一个旅行商人需要拜访n个城市
  * 条件：要选择一个路径能够拜访到所有的城市，且每个城市只能被拜访一次，最终回到起点
  * 目标：求得的路径路程为所有路径可能之中的最小值
- * 算法描述： 从当前的节点开始，和周围的邻居节点的值进行比较：
- * 		     如果当前节点是最大的，那么返回当前节点，作为最大值(既山峰最高点)；
+ * 算法描述： 从当前的节点开始，和周围的邻居节点的值进行比较，以一定的概率来接受一个比当前解要差的解：
+ * 		     如果当前节点大于邻居节点，以一定概率替换当前节点，以邻居节点作为最大值(既山峰最高点)；
  * 		    反之就用最高的邻居节点来，替换当前节点；
  * 		    如此循环直到达到最高点
  * @author Fan
  *
  */
-public class HillClimbing {
-    // 最大迭代次数
-    public static final int ITERATIONS_BEFORE_MAXIMUM = 1500;
+public class SimulatedAnnealing {
+	// 最大迭代次数
+    private double temperature = 10000;
+    private double coolingRate = 0.99;
+    private double absoluteTemperature = 0.00001;
     
     /**
      * 寻找最短路径
@@ -26,16 +28,22 @@ public class HillClimbing {
         Route adjacentRoute;
         int iterToMaximumCounter = 0;
         String compareRoutes = null;
-        while(iterToMaximumCounter < ITERATIONS_BEFORE_MAXIMUM) {
+        while(temperature > absoluteTemperature) {
             adjacentRoute = obtainAdjacentRoute(new Route(currentRoute));
-            if(adjacentRoute.getTotalDistance() <= currentRoute.getTotalDistance()) {
-                compareRoutes = "<= (更新)";
-                iterToMaximumCounter = 0;
+            double deltaDistance = adjacentRoute.getTotalDistance()-currentRoute.getTotalDistance();
+            if(deltaDistance <= 0) {
+                compareRoutes = "<= (更新) - 迭代次数 # "+ iterToMaximumCounter;
                 currentRoute = new Route(adjacentRoute);
             } else {
-                compareRoutes = "> (保持) - 迭代次数 # " + iterToMaximumCounter;
-                iterToMaximumCounter++;
+            	if(Math.exp(-deltaDistance/temperature)>Math.random()){
+            		compareRoutes = "> (更新退火) - 迭代次数 # "+ iterToMaximumCounter;
+                    currentRoute = new Route(adjacentRoute);
+            	}else{
+            		compareRoutes = "> (保持) - 迭代次数 # " + iterToMaximumCounter;
+            	}
             }
+            temperature *= coolingRate;
+            iterToMaximumCounter++;
             System.out.println("       | " + compareRoutes);
             System.out.print(currentRoute + " |      " + currentRoute.getTotalStringDistance());
         }
@@ -66,4 +74,3 @@ public class HillClimbing {
         return route;
     }
 }
-

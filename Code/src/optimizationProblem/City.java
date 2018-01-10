@@ -1,4 +1,4 @@
-package hillClimbing;
+package optimizationProblem;
 
 public class City {
     // µØÇò³àµÀ°ë¾¶
