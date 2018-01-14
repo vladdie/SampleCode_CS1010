@@ -20,21 +20,31 @@ public class Solution {
     
     public static void main(String[] args) {
     	Solution solution = new Solution();
-        Route route = new Route(solution.initialCities);
         System.out.println("Please choose the optimization algorithm by entering the index number:");
         System.out.println("1: Hill Climbing");
         System.out.println("2: Simulated Annealing");
+        System.out.println("2: Genetic Algorithm");
         Scanner reader = new Scanner(System.in); 
-        System.out.println("Please enter the index: ");
-        int index = reader.nextInt(); 
-        reader.close(); 
+        System.out.print("Please enter the index: ");
+        //int index = reader.nextInt(); 
+       // reader.close(); 
+        int index = 3;
+        Route route;
         switch(index){
         	case 1: 
+        		route = new Route(solution.initialCities);
         		new HillClimbing().findShortestRoute(route);
         		break;
         	case 2:
+        		 route = new Route(solution.initialCities);
         		 new SimulatedAnnealing().findShortestRoute(route);
         		 break;
+        	case 3:
+        		City[] cities= new City[solution.initialCities.size()];
+        		solution.initialCities.toArray(cities);
+        		GeneticAlgorithm ga = new GeneticAlgorithm();
+        		ga.printResult(ga.run(cities));
+        		break;
         	default:
         		System.out.println("Invalid input");
         }

@@ -61,4 +61,6 @@ public class City {
     private double deg2rad(double deg) {
           return deg * CONCVERT_DEGREES_TO_RADIANS;
     }
+    
+    
 }
