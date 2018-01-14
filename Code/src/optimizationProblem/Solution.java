@@ -26,9 +26,9 @@ public class Solution {
         System.out.println("2: Genetic Algorithm");
         Scanner reader = new Scanner(System.in); 
         System.out.print("Please enter the index: ");
-        //int index = reader.nextInt(); 
-       // reader.close(); 
-        int index = 3;
+        int index = reader.nextInt(); 
+        reader.close(); 
+        //int index = 3;
         Route route;
         switch(index){
         	case 1: 

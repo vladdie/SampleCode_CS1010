@@ -155,10 +155,9 @@ public class GeneticAlgorithm {
 	private Chromosome[] crossover(Chromosome parent1,Chromosome parent2)
 	{
 		 // 选取交叉区间 0 [1-x) [x,y] (y,N-1]
-       // int y = (int) (Math.random()*(parent1.getGene().length - 1)) + 1;
-       // int x = (int) (Math.random()*(y - 1)) + 1;
-		int y = 6;
-		int x=2;
+        int y = (int) (Math.random()*(parent1.getGene().length - 1)) + 1;
+        int x = (int) (Math.random()*(y - 1)) + 1;
+		
         int[] gene1 = parent1.getGene().clone();
         int[] gene2 = parent2.getGene().clone();
         HashMap<Integer,Integer> m1 = new HashMap<Integer,Integer>();
