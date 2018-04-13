@@ -1,0 +1,123 @@
+import java.util.*;
+
+public class HelloWorld{
+    
+    public static int goodCases = 0;
+    public static int badCases = 0;
+    public static int goodPeople = 0;
+    public static int badPeople = 0;
+    public static HashMap<Integer, String> roles = new HashMap<Integer, String>();
+    public static boolean goodFlag;
+    
+     public static boolean run(){
+         goodFlag = true;
+         int[][] selections = new int[8][3];
+        
+         for(int i=0;i<8;i++){
+            int counter = 0;
+            ArrayList<String> temp = new ArrayList<String>();
+            //System.out.println("\npeople index: "+i);
+            while(counter<3){
+                boolean flag = false;
+                do{
+                    int r = (int)(Math.random() * 8 + 1);
+                    if(!temp.contains(r) || r==i){
+                        temp.add(Integer.toString(r));
+                        selections[i][counter] = r;
+                        //System.out.print(r+", ");
+                        flag = false;
+                        counter++;
+                    }
+                    else
+                        flag = true;
+                }while(flag);
+                    
+            }
+        }
+        
+        int[] frequency = new int[8];
+        //HashMap<Integer, Integer> frequency = new HashMap<Integer, Integer>();
+        for(int i=0;i<8;i++){
+            for(int j=0;j<3;j++){
+                if(selections[i][j]==1){
+                    frequency[0]++;
+                }
+                if(selections[i][j]==2){
+                    frequency[1]++;
+                }
+                if(selections[i][j]==3){
+                    frequency[2]++;
+                }
+                if(selections[i][j]==4){
+                    frequency[3]++;
+                }
+                if(selections[i][j]==5){
+                    frequency[4]++;
+                }
+                if(selections[i][j]==6){
+                    frequency[5]++;
+                }
+                if(selections[i][j]==7){
+                    frequency[6]++;
+                }
+                if(selections[i][j]==8){
+                    frequency[7]++;
+                }
+            }
+        }
+        
+        //System.out.println();
+        for(int i=0;i<8;i++){
+           // System.out.println("index: "+(i+1)+", "+roles.get(i+1)+",  tickets: "+frequency[i]);
+        }
+        
+        int maxValue = 0;
+        for(int i=0;i<8;i++){
+            if(frequency[i]>maxValue)
+                maxValue = frequency[i];
+        }
+        //System.out.println("max value: "+maxValue);
+        
+        for(int i=0;i<8;i++){
+            if(frequency[i]==maxValue){
+                if(roles.get(i+1).equals("good")){
+                    goodPeople++;
+                }
+                if(roles.get(i+1).equals("bad")){
+                    badPeople++;
+                    goodFlag = false;
+                    //return false;
+                }
+            }
+        }
+        
+        return goodFlag;
+        
+     }
+
+     public static void main(String []args){
+        
+        roles.put(1, "bad");
+        roles.put(2, "good");
+        roles.put(3, "good");
+        roles.put(4, "bad");
+        roles.put(5, "good");
+        roles.put(6, "good");
+        roles.put(7, "bad");
+        roles.put(8, "good");
+        
+        for(int i=0;i<200000;i++){
+            if( run())
+                goodCases++;
+            else
+                badCases++;
+        }
+        
+         System.out.println("good cases: "+goodCases);
+         System.out.println("bad cases: "+badCases);
+         System.out.println("correct ratio: "+(double)goodCases/(double)(goodCases+badCases));
+         System.out.println("good people: "+goodPeople);
+         System.out.println("bad people: "+badPeople);
+         System.out.println("correct people ratio: "+(double)goodPeople/(double)(goodPeople+badPeople));
+     }
+}
